@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>fetch api</title>
+</head>
+<body>
+    <input type="button" onclick="show()" value="起動">
+</body>
+
+
+ <script>
+     let params = getParameter();
+
+     //パラメータの取得
+     function getParameter(){
+         let paramsArray = [];
+         let url = location.href;
+         parameters = url.split("#");
+         if( parameters.length > 1 ) {
+             url = parameters[0];
+         }
+         parameters = url.split("?");
+         if( parameters.length > 1 ) {
+             let params   = parameters[1].split("&");
+             for ( i = 0; i < params.length; i++ ) {
+                 let paramItem = params[i].split("=");
+                 paramsArray[paramItem[0]] = paramItem[1];
+             }
+         }
+         return paramsArray;
+     };
+
+     //設定したパラメータを返す。
+     function setParameter( paramsArray ) {
+         let resurl = location.href.replace(/\?.*$/,"");
+         for ( key in paramsArray ) {
+             resurl += (resurl.indexOf('?') == -1) ? '?':'&';
+             resurl += key + '=' + paramsArray[key];
+         }
+         return resurl;
+     }
+
+
+     function show() {
+
+        fetch('api.php', {
+            method: 'GET',
+            mode: 'same-origin',
+            credentials: 'include'
+          })
+        .then((response) => response.text())
+        .then((text) => console.log(text))
+        .catch((error) => console.log(error));
+       }
+
+
+
+       let str = 'user-1 ,user-2, user-3';
+
+       //カンマで区切る
+       let result = str.split(',');
+       //,で区切られた奴が配列で表示される
+       //"user-1 ", "user-2", " user-3"]
+       console.log(result);
+
+      //["user", "1 ,user", "2, user", "3"]
+       let result2 = str.split('-');
+       console.log(result2);
+ </script>
+</html>

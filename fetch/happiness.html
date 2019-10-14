@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>fetch apiで叩く</title>
+  </head>
+  <body>
+   <button type="button" onclick="go()" value="" name="button">happiness復習</button>
+
+  <!-- getパラメータを付与する そのgetパラメータの種類によって変化させていくこと -->
+  </body>
+
+  <script>
+
+    //getパラメータを取得する
+    let param = location.search;
+    console.log(param);
+
+    //fetc apiについて
+
+    //getは省略できる
+    //祝日apiをコールして、その結果を文字列として表示している
+    //fetchの結果はpromiseオブジェクトとして返ってきます
+    //そのpromiseというのはResponseオブジェクトで、Response.text()とすることで、
+    //リクエスト自体の結果を文字列で解決されたpromiseをえることができる
+    //そして再び、thenを使うことで文字列にアクセスすることができる。
+
+    //Response.okというプロパティを参照することでレスポンスが成功したかどうかを確かめます
+    //return で返して、logに吐き出します。
+    fetch('https://holidays-jp.github.io/api/v1/date.json')
+      .then(response => response.text())
+      .then(text => {
+        console.log(text);
+      })
+  </script>
+</html>

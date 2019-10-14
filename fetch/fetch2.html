@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+</head>
+<html>
+
+<body>
+
+    <form>
+        <input id="word1" type="text" name="word1" />
+        <input id="word2" type="text" name="word2" />
+        <input id="button" type="button" value="送信" />
+    </form>
+    <div id="result"></div>
+
+    <script>
+
+        document.getElementById('button').addEventListener('click', function (e) {
+
+            let params = new URLSearchParams();
+
+            params.set('word1', document.getElementById('word1').value);
+            params.set('word2', document.getElementById('word2').value);
+
+            fetch('test-get.php?' + params.toString())
+                .then(function (response) {
+                    console.log('Response:'+ response);
+                    console.log(response.headers.get('Content-Type')); //text/html; charset=UTF-8
+                    console.log(response.headers.get('Date')); //Wed, 16 Jan 2019 03:08:21 GMT
+                    console.log(response.status); //200
+                    return response.text();
+                })
+                .then(function (data) {
+                    console.log('data1:'+ data);
+                    document.getElementById('result').textContent = data;
+                    console.log('data2:'+ data);
+                })
+                .catch(function (error) {
+                    document.getElementById('result').textContent = error;
+                })
+        }, false)
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>fetch apiで叩く</title>
+  </head>
+  <body>
+    <form class="" action="index.html">
+      <button type="button" id="show" onclick="preview()" value="show" name="button">起動</button>
+      <button type="button" id="up"   onclick="moveUp()" value="up" name="button">上</button>
+      <button type="button" id="down" onclick="moveDown()" value="down" name="button">下</button>
+      <button type="button" id="left" onclick="moveLeft()" value="left" name="button">左</button>
+      <button type="button" id="right" onclick="moveRight()" value="right" name="button">右</button>
+    </form>
+
+    <!-- データを可視化する -->
+    <div class="" id="result">
+
+    </div>
+
+
+  <!-- getパラメータを付与する そのgetパラメータの種類によって変化させていくこと -->
+    <script>
+      //fetc apiについて
+
+      //getは省略できる
+      //祝日apiをコールして、その結果を文字列として表示している
+      //fetchの結果はpromiseオブジェクトとして返ってきます
+      //そのpromiseというのはResponseオブジェクトで、Response.text()とすることで、
+      //リクエスト自体の結果を文字列で解決されたpromiseをえることができる
+      //そして再び、thenを使うことで文字列にアクセスすることができる。
+
+      //Response.okというプロパティを参照することでレスポンスが成功したかどうかを確かめます
+      //return で返して、logに吐き出すという流れ
+
+      //このurl
+      let url = location.href;
+      console.log(url);
+      let action = 'action';
+      let params = new URLSearchParams();
+
+
+      function fetchApi(){
+        fetch('./api.php?' + params)
+         .then(function(response){
+           console.log(response.status);
+           return response.text();
+         })
+         .then(function(data){
+           //resultを取得してきて、response.textを表示させる
+           document.getElementById('result').textContent = data;
+           console.log(data);
+         })
+         .catch(function(error){
+           document.getElementById('result').textContent = data;
+         });
+      }
+      function preview(){
+         let show  = document.getElementById('show').value;
+         //.valueでvalue属性を取得
+         // let direction = document.getElementById('direction').value;
+         console.log(show);
+         params.set(action, show);
+         console.log(params);
+         fetchApi();
+      }
+      function moveUp(){
+        let up    = document.getElementById('up').value;
+        params.set(action, up);
+        fetchApi();
+      }
+      function moveDown(){
+        let down = document.getElementById('down').value;
+        params.set(action, down);
+        fetchApi();
+      }
+      function moveLeft(){
+        let left = document.getElementById('left').value;
+        params.set(action, left);
+        fetchApi();
+      }
+      function moveRight(){
+        let right = document.getElementById('right').value;
+        params.set(action, right);
+        fetchApi();
+      }
+    </script>
+  </body>
+
+
+</html>
