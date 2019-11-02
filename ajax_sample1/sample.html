@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <!-- cdnでjquery読み込み -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>/
+  </head>
+  <body>
+    <div class="example"></div>
+
+    <script>
+      $(function(){
+        let data = {
+          name: 'sato',
+          age: 30
+        };
+        //GETでのAjax通信
+         //'sample.htmlは通信先のURL' 相対パス絶対パスでも可能
+         //dataで渡すdata
+         //第３引数でajax通信が終わったら行う処理
+          //引数にサーバーから返ってきたデータが
+          //'html'で返ってきたデータの形式を指定する
+        $.get('sample.html', data, function(result){
+          alert('success!');
+          $('.example').html(result);//DOMを書き換える
+        }, 'html');
+        //結果：URLがhttp://sample.com/でアレば、
+        //http://sample.com/sample.html？name=sato&age=30というURLで送信される
+
+      })
+    </script>
+  </body>
+</html>

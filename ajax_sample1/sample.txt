@@ -1,0 +1,1 @@
+ajaxの基本、post,getの場合
